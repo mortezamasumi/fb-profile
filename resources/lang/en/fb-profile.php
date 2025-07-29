@@ -34,4 +34,7 @@ return [
             'father_name' => 'Father name',
         ],
     ],
+    'notification' => [
+        'title' => 'Profile updated successfully',
+    ]
 ];

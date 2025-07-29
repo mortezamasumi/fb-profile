@@ -4,7 +4,7 @@ namespace Mortezamasumi\FbProfile;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
-use Mortezamasumi\FbProfile\Pages\EditProfile;
+use Mortezamasumi\FbProfile\Pages\FbProfile;
 
 class FbProfilePlugin implements Plugin
 {
@@ -15,7 +15,7 @@ class FbProfilePlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $panel->profile(EditProfile::class);
+        $panel->profile(FbProfile::class);
     }
 
     public function boot(Panel $panel): void
