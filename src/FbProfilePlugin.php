@@ -1,20 +1,21 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Mortezamasumi\FbProfile;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Mortezamasumi\FbProfile\Pages\EditProfile;
 
-class SkeletonPlugin implements Plugin
+class FbProfilePlugin implements Plugin
 {
     public function getId(): string
     {
-        return 'skeleton';
+        return 'fb-profile';
     }
 
     public function register(Panel $panel): void
     {
-        //
+        $panel->profile(EditProfile::class);
     }
 
     public function boot(Panel $panel): void

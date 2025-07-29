@@ -1,6 +1,6 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+namespace Mortezamasumi\FbProfile\Tests;
 
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
-use VendorName\Skeleton\Tests\Services\SkeletonPanelProvider;
-use VendorName\Skeleton\SkeletonServiceProvider;
+use Mortezamasumi\FbProfile\Tests\Services\FbProfilePanelProvider;
+use Mortezamasumi\FbProfile\FbProfileServiceProvider;
 
 use function Orchestra\Testbench\default_migration_path;
 
@@ -28,7 +28,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         // Factory::guessFactoryNamesUsing(
-        //     fn (string $modelName) => 'VendorName\\Skeleton\\Database\\Factories\\'.class_basename($modelName).'Factory'
+        //     fn (string $modelName) => 'Mortezamasumi\\FbProfile\\Database\\Factories\\'.class_basename($modelName).'Factory'
         // );
     }
 
@@ -71,8 +71,8 @@ class TestCase extends Orchestra
             SupportServiceProvider::class,
             TablesServiceProvider::class,
             WidgetsServiceProvider::class,
-            SkeletonServiceProvider::class,
-            SkeletonPanelProvider::class,
+            FbProfileServiceProvider::class,
+            FbProfilePanelProvider::class,
         ];
     }
 }
