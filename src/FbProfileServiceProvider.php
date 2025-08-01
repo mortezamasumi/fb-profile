@@ -2,6 +2,7 @@
 
 namespace Mortezamasumi\FbProfile;
 
+use Mortezamasumi\FbProfile\FbProfile;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -15,5 +16,10 @@ class FbProfileServiceProvider extends PackageServiceProvider
             ->name(static::$name)
             ->hasTranslations()
             ->hasConfigFile();
+    }
+
+    public function packageRegistered()
+    {
+        $this->app->singleton('FbProfile', fn ($app) => new FbProfile());
     }
 }
