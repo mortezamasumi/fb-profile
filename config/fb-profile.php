@@ -2,13 +2,9 @@
 
 return [
     'max_avatar_size' => 200,
-    // 'mobile_required' => true,
-    // 'email_required' => false,
-    'mobile_required' => false,
+    'mobile_required' => true,
     'email_required' => true,
-    'username_required' => false,
-    'email_link_verification' => false,
-    'otp_digits' => 4,
+    'username_required' => true,
     'use_passport_number_on_nid' => true,
     'nid_required' => true,
     'gender_required' => false,

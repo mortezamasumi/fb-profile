@@ -10,13 +10,10 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\Width;
-use Filament\Support\Facades\FilamentView;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\URL;
-use Mortezamasumi\FbProfile\Enums\AuthType;
 use Mortezamasumi\FbProfile\Enums\GenderEnum;
 
-class FbProfile extends PagesEditProfile
+class EditProfile extends PagesEditProfile
 {
     protected Width|string|null $maxContentWidth = '3xl';
 
@@ -66,21 +63,21 @@ class FbProfile extends PagesEditProfile
                 ->jDate(),
             TextInput::make('mobile')
                 ->label(__('fb-profile::fb-profile.form.mobile'))
-                ->required(config('app.auth_type') === AuthType::Mobile)
+                ->required(config('fb-profile.mobile_required'))
                 ->tel()
                 ->telRegex('/^((\+|00)[1-9][0-9 \-\(\)\.]{11,18}|09\d{9})$/')
                 ->maxLength(30)
                 ->toEN(),
             TextInput::make('email')
                 ->label(__('filament-panels::auth/pages/register.form.email.label'))
-                ->required(config('app.auth_type') === AuthType::Link || config('app.auth_type') === AuthType::Code)
+                ->required(config('fb-profile.email_required'))
                 ->rules(['email'])
                 ->extraAttributes(['dir' => 'ltr'])
                 ->maxLength(255)
                 ->toEN(),
             TextInput::make('username')
                 ->label(__('fb-profile::fb-profile.form.username'))
-                ->required(config('app.auth_type') === AuthType::User)
+                ->required(config('fb-profile.username_required'))
                 ->maxLength(255),
         ];
     }
@@ -97,19 +94,10 @@ class FbProfile extends PagesEditProfile
      */
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
-        if (config('fb-profile.mobile_required')) {
-            // mobile code
-        } elseif (config('fb-profile.email_required')) {
-            if (config('fb-profile.email_link_verification')) {
-                // email link
-                if (Filament::hasEmailChangeVerification() && array_key_exists('email', $data)) {
-                    $this->sendEmailChangeVerification($record, $data['email']);
+        if (Filament::hasEmailChangeVerification() && array_key_exists('email', $data)) {
+            $this->sendEmailChangeVerification($record, $data['email']);
 
-                    unset($data['email']);
-                }
-            } else {
-                // email code
-            }
+            unset($data['email']);
         }
 
         $record->update($data);
@@ -121,17 +109,6 @@ class FbProfile extends PagesEditProfile
     {
         return Filament::getCurrentPanel()->getLoginUrl();
     }
-
-    // public function save(): void
-    // {
-    //     parent::save();
-
-    //     $this
-    //         ->redirect(
-    //             Filament::getCurrentPanel()->getLoginUrl(),
-    //             navigate: FilamentView::hasSpaMode() && URL::is(Filament::getCurrentPanel()->getLoginUrl())
-    //         );
-    // }
 
     protected function getSavedNotificationTitle(): ?string
     {
