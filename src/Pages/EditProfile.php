@@ -17,7 +17,7 @@ class EditProfile extends PagesEditProfile
 {
     protected Width|string|null $maxContentWidth = '3xl';
 
-    public static function formComponents(bool $isRegister = false): array
+    public static function formComponents(): array
     {
         return [
             FileUpload::make('avatar')
@@ -28,8 +28,7 @@ class EditProfile extends PagesEditProfile
                 ->visibility('public')
                 ->maxSize(config('fb-profile.max_avatar_size', 200))
                 ->columnSpanFull()
-                ->alignCenter()
-                ->hidden($isRegister),
+                ->alignCenter(),
             TextInput::make('first_name')
                 ->label(__('fb-profile::fb-profile.form.first_name'))
                 ->required()
