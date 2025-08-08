@@ -42,11 +42,11 @@ class EditProfile extends PagesEditProfile
                     ? 'fb-profile::fb-profile.form.nid_pass'
                     : 'fb-profile::fb-profile.form.nid')))
                 ->required(config('fb-profile.nid_required'))
-                ->regex(fn () => (__(config('fb-profile.use_passport_number_on_nid')
-                    ? '/^(?:\d{10}|[A-Za-z].*\d{5,})$/'
-                    : '/^\d{10}$/')))
+                // ->regex(fn () => (__(config('fb-profile.use_passport_number_on_nid')
+                //     ? '/^(?:\d{10}|[A-Za-z].*\d{5,})$/'
+                //     : '/^\d{10}$/')))
                 ->maxLength(255)
-                // ->rule('iran_nid') ?????
+                ->rule('iran_nid')
                 ->toEN(),
             TextInput::make('profile.father_name')
                 ->label(__('fb-profile::fb-profile.form.profile.father_name'))

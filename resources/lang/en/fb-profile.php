@@ -37,4 +37,7 @@ return [
     'notification' => [
         'title' => 'Profile updated successfully',
     ],
+     'nid' => [
+        'validation' => 'Invalid iranian NID',
+    ],
 ];
