@@ -5,8 +5,8 @@ return [
     'mobile_required' => false,
     'email_required' => true,
     'username_required' => false,
+    'nid_required' => false,
     'use_passport_number_on_nid' => false,
-    'nid_required' => true,
     'gender_required' => false,
     'birth_date_required' => false,
 ];

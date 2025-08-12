@@ -28,7 +28,7 @@ return [
         'user_profile' => 'Profile',
         'account' => 'Account',
         'password' => 'Password',
-        'expired_at' => 'Account expire at',
+        'expiration_date' => 'Expiration date',
         'force_change_password' => 'Force change password',
         'profile' => [
             'father_name' => 'Father name',
@@ -37,7 +37,7 @@ return [
     'notification' => [
         'title' => 'Profile updated successfully',
     ],
-     'nid' => [
+    'nid' => [
         'validation' => 'Invalid iranian NID',
     ],
 ];

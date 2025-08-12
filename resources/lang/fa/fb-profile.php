@@ -28,7 +28,7 @@ return [
         'user_profile' => 'پروفایل',
         'account' => 'حساب‌کاربری',
         'password' => 'رمز‌عبور',
-        'expired_at' => 'تاریخ‌انقضای‌حساب',
+        'expiration_date' => 'تاریخ‌انقضای‌حساب',
         'force_change_password' => 'اجبار‌به‌تغییر‌رمز',
         'profile' => [
             'father_name' => 'نام‌پدر',
