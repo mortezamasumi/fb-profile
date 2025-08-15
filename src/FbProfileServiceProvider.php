@@ -17,11 +17,11 @@ class FbProfileServiceProvider extends PackageServiceProvider
     public function configurePackage(Package $package): void
     {
         $package
+            ->name(static::$name)
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile();
             })
-            ->name(static::$name)
             ->hasTranslations()
             ->hasConfigFile();
     }
