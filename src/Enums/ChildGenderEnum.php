@@ -20,8 +20,8 @@ enum ChildGenderEnum: string implements HasLabel, HasColor
     public function getColor(): string|array|null
     {
         return match ($this) {
-            self::Girl => Color::Fuchsia,
-            self::Boy => Color::Indigo,
+            self::Girl => Color::Rose,
+            self::Boy => Color::Emerald,
             self::Undefined => Color::Stone,
         };
     }
