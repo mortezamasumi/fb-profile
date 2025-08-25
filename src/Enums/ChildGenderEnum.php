@@ -21,7 +21,7 @@ enum ChildGenderEnum: string implements HasLabel, HasColor
     {
         return match ($this) {
             self::Girl => Color::Rose,
-            self::Boy => Color::Emerald,
+            self::Boy => Color::Sky,
             self::Undefined => Color::Stone,
         };
     }
