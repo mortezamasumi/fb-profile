@@ -16,9 +16,9 @@ class Profile
             FileUpload::make('avatar')
                 ->hiddenLabel()
                 ->avatar()
-                ->disk('public')
-                ->directory('avatars')
-                ->visibility('public')
+                ->disk(config('fb-profile.avatar_disk'))
+                ->directory(config('fb-profile.avatar_folder'))
+                ->visibility(config('fb-profile.avatar_visibility'))
                 ->maxSize(config('fb-profile.max_avatar_size', 200))
                 ->columnSpanFull()
                 ->alignCenter(),
