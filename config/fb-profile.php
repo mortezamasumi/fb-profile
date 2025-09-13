@@ -4,7 +4,7 @@ return [
     'max_avatar_size' => env('PROFILE_AVATAR_SIZE', 200),
     'avatar_disk' => env('AVATAR_DISK', 'public'),
     'avatar_visibility' => env('AVATAR_VISIBILITY', 'public'),
-    'avatar_folder' => env('AVATAR_FOLDER', 'avatars'),
+    'avatar_folder' => env('AVATAR_FOLDER', '/uploads/avatars'),
     'mobile_required' => env('PROFILE_MOBILE_REQUIRED', false),
     'email_required' => env('PROFILE_EMAIL_REQUIRED', false),
     'username_required' => env('PROFILE_USERNAME_REQUIRED', false),
