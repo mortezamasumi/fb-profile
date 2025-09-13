@@ -2,10 +2,10 @@
 
 namespace Mortezamasumi\FbProfile\Rules;
 
+use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\App;
 use Mortezamasumi\FbPersian\Facades\FbPersian;
-use Closure;
 
 class IranNid implements ValidationRule
 {
@@ -32,7 +32,8 @@ class IranNid implements ValidationRule
             $value === '6666666666' ||
             $value === '7777777777' ||
             $value === '8888888888' ||
-            $value === '9999999999'
+            $value === '9999999999' ||
+            $value === '1234567891'
         ) {
             $fail('failed');
         }

@@ -10,7 +10,7 @@ use Mortezamasumi\FbProfile\Enums\GenderEnum;
 
 class Profile
 {
-    public static function components(): array
+    public static function components(bool $isProfilePage = false): array
     {
         return [
             FileUpload::make('avatar')
@@ -35,15 +35,13 @@ class Profile
                     ? 'fb-profile::fb-profile.form.nid_pass'
                     : 'fb-profile::fb-profile.form.nid')))
                 ->required(config('fb-profile.nid_required'))
-                // ->regex(fn () => (__(config('fb-profile.use_passport_number_on_nid')
-                //     ? '/^(?:\d{10}|[A-Za-z].*\d{5,})$/'
-                //     : '/^\d{10}$/')))
                 ->maxLength(255)
                 ->rule('iran_nid')
                 ->toEN(),
             TextInput::make('profile.father_name')
                 ->label(__('fb-profile::fb-profile.form.profile.father_name'))
-                ->maxLength(255),
+                ->maxLength(255)
+                ->visible($isProfilePage),
             Select::make('gender')
                 ->label(__('fb-profile::fb-profile.form.gender'))
                 ->required(config('fb-profile.gender_required'))

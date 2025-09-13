@@ -16,8 +16,8 @@ class EditProfile extends BaseEditProfile
     public function form(Schema $schema): Schema
     {
         return $schema
-            ->components(Profile::components())
-            ->columns(3);
+            ->components(Profile::components(true))
+            ->columns(config('fb-profile.profile_form_columns'));
     }
 
     /**

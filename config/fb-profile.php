@@ -12,4 +12,5 @@ return [
     'use_passport_number_on_nid' => env('PROFILE_PASS_NUMBER', false),
     'gender_required' => env('PROFILE_GENDER_REQUIRED', false),
     'birth_date_required' => env('PROFILE_BIRTH_DATE_REQUIRED', false),
+    'profile_form_columns' => env('PROFILE_FORM_COLUMNS', 3),
 ];
