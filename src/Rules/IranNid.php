@@ -5,7 +5,7 @@ namespace Mortezamasumi\FbProfile\Rules;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\App;
-use Mortezamasumi\FbPersian\Facades\FbPersian;
+use Mortezamasumi\FbEssentials\Facades\FbPersian;
 
 class IranNid implements ValidationRule
 {
