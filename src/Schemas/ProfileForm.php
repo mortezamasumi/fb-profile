@@ -1,16 +1,36 @@
 <?php
 
-namespace Mortezamasumi\FbProfile\Component;
+namespace Mortezamasumi\FbProfile\Schemas;
 
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Illuminate\Support\Facades\Auth;
 use Mortezamasumi\FbProfile\Enums\GenderEnum;
 
-class Profile
+class ProfileForm
 {
     public static function components(bool $isProfilePage = false): array
+    {
+        /** @disregard */
+        $userClass = Auth::getProvider()->getModel();
+
+        if (method_exists($userClass, 'customProfileForm')) {
+            return $userClass::customProfileForm();
+        }
+
+        if (method_exists($userClass, 'exteraProfileComponents')) {
+            return [
+                ...static::profileComponents($isProfilePage),
+                ...$userClass::exteraProfileComponents(),
+            ];
+        }
+
+        return static::profileComponents($isProfilePage);
+    }
+
+    private static function profileComponents(bool $isProfilePage): array
     {
         return [
             FileUpload::make('avatar')

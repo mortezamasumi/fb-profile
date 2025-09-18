@@ -7,7 +7,7 @@ use Filament\Facades\Filament;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\Width;
 use Illuminate\Database\Eloquent\Model;
-use Mortezamasumi\FbProfile\Component\Profile;
+use Mortezamasumi\FbProfile\Schemas\ProfileForm;
 
 class EditProfile extends BaseEditProfile
 {
@@ -16,7 +16,7 @@ class EditProfile extends BaseEditProfile
     public function form(Schema $schema): Schema
     {
         return $schema
-            ->components(Profile::components(true))
+            ->components(ProfileForm::components(true))
             ->columns(config('fb-profile.profile_form_columns'));
     }
 
