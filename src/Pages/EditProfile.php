@@ -38,7 +38,7 @@ class EditProfile extends BaseEditProfile
 
     protected function getRedirectUrl(): ?string
     {
-        return Filament::getCurrentPanel()->getLoginUrl();
+        return Filament::getLoginUrl();
     }
 
     protected function getSavedNotificationTitle(): ?string
