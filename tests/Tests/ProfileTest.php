@@ -6,10 +6,12 @@ use Mortezamasumi\FbProfile\Pages\EditProfile;
 use Mortezamasumi\FbProfile\Tests\Services\User;
 
 beforeEach(function () {
+    /** @var Pest $this */
     $this->actingAs($this->user = User::factory()->create());
 });
 
 it('can see profile in user menu', function () {
+    /** @var Pest $this */
     $this
         ->Livewire(SimpleUserMenu::class)
         ->assertSee('Profile');
@@ -26,6 +28,7 @@ it('can update profile', function () {
         'mobile' => fake()->numerify('09#########'),
     ];
 
+    /** @var Pest $this */
     $this
         ->livewire(EditProfile::class)
         ->fillForm($data)
@@ -46,6 +49,7 @@ it('can redirect after update', function () {
         'last_name' => fake()->lastName(),
     ];
 
+    /** @var Pest $this */
     $this
         ->livewire(EditProfile::class)
         ->fillForm($data)
