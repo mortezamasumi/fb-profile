@@ -1,9 +1,10 @@
 {
     "name": "mortezamasumi/fb-profile",
-    "description": "Provide edit profile on user menu",
+    "description": "Add a configurable profile form to your Filament user menu.",
     "keywords": [
         "mortezamasumi",
         "laravel",
+        "filament",
         "fb-profile"
     ],
     "homepage": "https://github.com/mortezamasumi/fb-profile",
@@ -28,17 +29,19 @@
     },
     "require-dev": {
         "filament/upgrade": "^5.0",
+        "larastan/larastan": "^3.10",
+        "laravel/pint": "^1.30",
         "orchestra/testbench": "^10.0",
         "pestphp/pest": "^4.0",
         "pestphp/pest-plugin-arch": "^4.0",
         "pestphp/pest-plugin-browser": "^4.0",
         "pestphp/pest-plugin-laravel": "^4.0",
-        "pestphp/pest-plugin-livewire": "^4.0"
+        "pestphp/pest-plugin-livewire": "^4.0",
+        "phpstan/phpstan": "^2.2"
     },
     "autoload": {
         "psr-4": {
-            "Mortezamasumi\\FbProfile\\": "src/",
-            "Mortezamasumi\\FbProfile\\Database\\Factories\\": "database/factories/"
+            "Mortezamasumi\\FbProfile\\": "src/"
         }
     },
     "autoload-dev": {
@@ -49,23 +52,21 @@
     "scripts": {
         "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
         "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest --coverage"
+        "test-coverage": "vendor/bin/pest --coverage",
+        "pint": "vendor/bin/pint",
+        "analyse": "vendor/bin/phpstan analyse --no-progress"
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "phpstan/extension-installer": true
+            "pestphp/pest-plugin": true
         }
     },
     "extra": {
         "laravel": {
             "providers": [
                 "Mortezamasumi\\FbProfile\\FbProfileServiceProvider"
-            ],
-            "aliases": {
-                "FbProfile": "Mortezamasumi\\FbProfile\\Facades\\FbProfile"
-            }
+            ]
         }
     },
     "minimum-stability": "stable",

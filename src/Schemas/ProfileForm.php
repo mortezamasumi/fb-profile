@@ -6,30 +6,44 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Component;
+use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Support\Facades\Auth;
 use Mortezamasumi\FbProfile\Enums\GenderEnum;
 
 class ProfileForm
 {
+    /**
+     * @return array<int, Component>
+     */
     public static function components(bool $isProfilePage = false): array
     {
-        /** @disregard */
-        $userClass = Auth::getProvider()->getModel();
+        $provider = Auth::getProvider();
+
+        if (! $provider instanceof EloquentUserProvider) {
+            return self::profileComponents($isProfilePage);
+        }
+
+        /** @var class-string<object> $userClass */
+        $userClass = $provider->getModel();
 
         if (method_exists($userClass, 'customProfileForm')) {
             return $userClass::customProfileForm();
         }
 
-        if (method_exists($userClass, 'exteraProfileComponents')) {
+        if (method_exists($userClass, 'extraProfileComponents')) {
             return [
-                ...static::profileComponents($isProfilePage),
-                ...$userClass::exteraProfileComponents(),
+                ...self::profileComponents($isProfilePage),
+                ...$userClass::extraProfileComponents(),
             ];
         }
 
-        return static::profileComponents($isProfilePage);
+        return self::profileComponents($isProfilePage);
     }
 
+    /**
+     * @return array<int, Component>
+     */
     private static function profileComponents(bool $isProfilePage): array
     {
         return [

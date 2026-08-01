@@ -10,7 +10,7 @@ enum GenderEnum: string implements HasLabel
     case Female = 'female';
     case Male = 'male';
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return __('fb-profile::fb-profile.gender.'.$this->value);
     }

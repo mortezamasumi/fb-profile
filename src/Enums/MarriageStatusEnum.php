@@ -10,7 +10,7 @@ enum MarriageStatusEnum: string implements HasLabel
     case MARRIED = 'married';
     case UNKNOWN = 'unknown';
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return __('fb-profile::fb-profile.marriage.'.$this->value);
     }

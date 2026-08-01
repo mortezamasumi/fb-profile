@@ -6,18 +6,18 @@ use Filament\Support\Colors\Color;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 
-enum ChildGenderEnum: string implements HasLabel, HasColor
+enum ChildGenderEnum: string implements HasColor, HasLabel
 {
     case Undefined = 'undefined';
     case Girl = 'girl';
     case Boy = 'boy';
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return __('fb-profile::fb-profile.gender.'.$this->value);
     }
 
-    public function getColor(): string|array|null
+    public function getColor(): array
     {
         return match ($this) {
             self::Girl => Color::Rose,

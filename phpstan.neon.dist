@@ -1,0 +1,14 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: 8
+    paths:
+        - src
+    tmpDir: build/phpstan
+    ignoreErrors:
+        # toEN()/jDate() are registered at runtime on Filament components by
+        # fb-essentials' FormMacroServiceProvider (TextInput::macro(...)), so
+        # PHPStan cannot resolve them statically.
+        - message: '#toEN\(\)|jDate\(\)#'
+          path: src

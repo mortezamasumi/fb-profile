@@ -1,54 +1,116 @@
-# Provide edit profile on user menu
+# FB Profile — Edit Profile for Filament
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mortezamasumi/fb-profile.svg?style=flat-square)](https://packagist.org/packages/mortezamasumi/fb-profile)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/mortezamasumi/fb-profile/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/mortezamasumi/fb-profile/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/mortezamasumi/fb-profile/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/mortezamasumi/fb-profile/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/mortezamasumi/fb-profile/ci.yml?branch=main&label=tests&style=flat-square)](https://github.com/mortezamasumi/fb-profile/actions?query=branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/mortezamasumi/fb-profile.svg?style=flat-square)](https://packagist.org/packages/mortezamasumi/fb-profile)
+[![License](https://img.shields.io/packagist/l/mortezamasumi/fb-profile.svg?style=flat-square)](LICENSE.md)
 
+A Filament panel plugin that adds a configurable profile form to the user menu, with Persian-aware inputs (avatar upload, name, NID, gender, birth date, mobile, email, username) and an Iranian national ID validator.
 
+---
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+## Features
+
+- **Profile page** — replaces the default Filament profile page with a richer, configurable form
+- **Avatar upload** — square avatar with configurable disk, folder, visibility and size limit
+- **Iranian NID validation** — checksum-validated, with a passport-number bypass option
+- **Persian input helpers** — Persian-to-English digit conversion on NID, mobile and email
+- **Required-field toggles** — make mobile, email, username, NID, gender or birth date required via config
+- **Custom components hook** — extend the form from your user model
+- **Localized** — ships English and Persian translations
+
+---
 
 ## Installation
-
-You can install the package via composer:
 
 ```bash
 composer require mortezamasumi/fb-profile
 ```
 
-You can publish and run the migrations with:
+Add the plugin to your Filament panel provider:
 
-```bash
-php artisan vendor:publish --tag="fb-profile-migrations"
-php artisan migrate
+```php
+use Mortezamasumi\FbProfile\FbProfilePlugin;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        ->plugins([
+            FbProfilePlugin::make(),
+        ]);
+}
 ```
 
-You can publish the config file with:
+---
+
+## Configuration
+
+Publish the config file:
 
 ```bash
 php artisan vendor:publish --tag="fb-profile-config"
 ```
 
-Optionally, you can publish the views using
+| Key | Default | Description |
+| --- | --- | --- |
+| `max_avatar_size` | `200` | Max avatar upload size in KB |
+| `avatar_disk` | `public` | Disk for avatar uploads |
+| `avatar_visibility` | `public` | Avatar visibility |
+| `avatar_folder` | `/uploads/avatars` | Avatar upload folder |
+| `mobile_required` | `false` | Require the mobile field |
+| `email_required` | `false` | Require the email field |
+| `username_required` | `false` | Require the username field |
+| `nid_required` | `false` | Require the national ID field |
+| `use_passport_number_on_nid` | `false` | Accept passport numbers instead of NIDs |
+| `gender_required` | `false` | Require the gender field |
+| `birth_date_required` | `false` | Require the birth date field |
+| `profile_form_columns` | `3` | Columns in the profile form grid |
 
-```bash
-php artisan vendor:publish --tag="fb-profile-views"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
+---
 
 ## Usage
 
+Once the plugin is registered, the profile page is available from the user menu. The form reads your user model's columns; the fields are fully optional unless you enable the `*_required` flags above.
+
+### Extending the form
+
+Your user model can add extra fields or replace the whole form:
+
 ```php
-$fbProfile = new Mortezamasumi\FbProfile();
-echo $fbProfile->echoPhrase('Hello, Mortezamasumi!');
+// In your User model — prepend the default fields, then append yours
+public static function extraProfileComponents(): array
+{
+    return [
+        \Filament\Forms\Components\TextInput::make('bio')->label('Bio'),
+    ];
+}
+
+// Or define a full custom form
+public static function customProfileForm(): array
+{
+    return [
+        \Filament\Forms\Components\TextInput::make('first_name'),
+    ];
+}
 ```
+
+### Iranian NID validation
+
+The `iran_nid` validation rule validates the Iranian national ID checksum. It is active in production only, and is bypassed when `use_passport_number_on_nid` is enabled.
+
+```php
+$this->validate(['nid' => ['required', 'iran_nid']]);
+```
+
+---
+
+## Support policy
+
+| PHP | Laravel |
+| --- | --- |
+| 8.3 | 12 |
+
+---
 
 ## Testing
 
@@ -56,23 +118,24 @@ echo $fbProfile->echoPhrase('Hello, Mortezamasumi!');
 composer test
 ```
 
-## Changelog
+The test suite covers the user menu entry, profile updates, redirect behaviour, and the Iranian NID validator using an in-memory SQLite database.
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+---
 
 ## Contributing
 
 Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 
-## Security Vulnerabilities
+## Security
 
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+If you discover a security vulnerability, please review our [security policy](.github/SECURITY.md) on how to report it.
 
-## Credits
+## Changelog
 
-- [Morteza Masumi](https://github.com/mortezamasumi)
-- [All Contributors](../../contributors)
+Please see [CHANGELOG](CHANGELOG.md) for recent changes.
+
+---
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). See [LICENSE.md](LICENSE.md) for details.

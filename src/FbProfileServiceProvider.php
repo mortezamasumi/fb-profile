@@ -3,6 +3,7 @@
 namespace Mortezamasumi\FbProfile;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Translation\PotentiallyTranslatedString;
 use Livewire\Features\SupportTesting\Testable;
 use Mortezamasumi\FbProfile\Rules\IranNid;
 use Mortezamasumi\FbProfile\Testing\TestsFbProfile;
@@ -29,8 +30,12 @@ class FbProfileServiceProvider extends PackageServiceProvider
     public function packageBooted(): void
     {
         Validator::extend('iran_nid', function ($attribute, $value, $parameters, $validator) {
-            (new IranNid)->validate($attribute, $value, function ($message) use (&$failed) {
+            $failed = false;
+
+            (new IranNid)->validate($attribute, $value, function (string $message, ?string $attribute = null) use (&$failed) {
                 $failed = true;
+
+                return new PotentiallyTranslatedString($message, app('translator'));
             });
 
             return ! $failed;
