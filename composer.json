@@ -31,6 +31,7 @@
         "filament/upgrade": "^5.0",
         "larastan/larastan": "^3.10",
         "laravel/pint": "^1.30",
+        "league/uri-components": "^7.5",
         "orchestra/testbench": "^10.0",
         "pestphp/pest": "^4.0",
         "pestphp/pest-plugin-arch": "^4.0",
